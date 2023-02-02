@@ -22,5 +22,19 @@ namespace Pets.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteDogs(string id)
+        {
+            await _dogsRepository.DeleteDogs(id);
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult GetDogs(string id)
+        {
+            return Ok(_dogsRepository.GetDogs(id));
+        }
     }
 }

@@ -8,5 +8,15 @@ namespace Pets.Api.Database.Repository
         {
             await Add(dog);
         }
+
+        public async Task DeleteDogs(string id)
+        {
+            await Delete(id);
+        }
+
+        public IEnumerable<Dog> GetDogs(string id)
+        {
+            return Get(_=>_.Id == id);
+        }
     }
 }

@@ -1,7 +1,6 @@
 using Pets.Api.Database.DatabaseSettings;
 using Pets.Api.Database.Provider;
 using Pets.Api.Database.Repository;
-using Raven.Client.Documents;
 
 var builder = WebApplication.CreateBuilder(args);
 
