@@ -16,11 +16,9 @@ namespace Pets.Api.Database.Provider
         {
             var store = new DocumentStore()
             {
-
                 Urls = new[] { RavenDbSettings.RavenUrl },
 
-                Database =RavenDbSettings.DatabaseName,
-
+                Database = RavenDbSettings.DatabaseName,
             }.Initialize();
 
             return store;
@@ -50,7 +48,6 @@ namespace Pets.Api.Database.Provider
                 {
                     // The database was already created before calling CreateDatabaseOperation
                 }
-
             }
         }
 

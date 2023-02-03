@@ -15,15 +15,15 @@ namespace Pets.Api.Controllers
             _dogsRepository = dogsRepository;
         }
 
-        [HttpPost]
+        [HttpPost("add-dogs")]
         public async Task<IActionResult> AddDogs(Dog dog)
         {
-           await _dogsRepository.AddDogs(dog);
+            await _dogsRepository.AddDogs(dog);
 
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("delete-dogs")]
         public async Task<IActionResult> DeleteDogs(string id)
         {
             await _dogsRepository.DeleteDogs(id);
@@ -31,10 +31,16 @@ namespace Pets.Api.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public IActionResult GetDogs(string id)
+        [HttpGet("get-dogs")]
+        public IActionResult GetDogs(double height)
         {
-            return Ok(_dogsRepository.GetDogs(id));
+            return Ok(_dogsRepository.GetDogs(height));
+        }
+
+        [HttpGet("get-dog")]
+        public IActionResult GetDog(double height)
+        {
+            return Ok(_dogsRepository.GetDog(height));
         }
     }
 }

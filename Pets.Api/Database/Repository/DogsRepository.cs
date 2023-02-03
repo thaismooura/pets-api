@@ -14,9 +14,14 @@ namespace Pets.Api.Database.Repository
             await Delete(id);
         }
 
-        public IEnumerable<Dog> GetDogs(string id)
+        public IEnumerable<Dog> GetDogs(double height)
         {
-            return Get(_=>_.Id == id);
+            return Get(_ => Math.Abs(_.Height - height) < 0.5);
+        }
+
+        public Dog GetDog(double height)
+        {
+            return GetOne(_ => Math.Abs(_.Height - height) < 0.5);
         }
     }
 }

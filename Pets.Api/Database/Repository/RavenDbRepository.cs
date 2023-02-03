@@ -1,12 +1,13 @@
 ﻿using Pets.Api.Database.Provider;
+using Pets.Api.Exceptions;
 
 namespace Pets.Api.Database.Repository
 {
-    public class RavenDbRepository<T> 
+    public class RavenDbRepository<T>
     {
         protected async Task Add(T entity)
         {
-            var session =  DatabaseProvider.Store.OpenAsyncSession();
+            var session = DatabaseProvider.Store.OpenAsyncSession();
 
             await session.StoreAsync(entity);
 
@@ -28,7 +29,17 @@ namespace Pets.Api.Database.Repository
 
             var query = session.Query<T>().Where(where);
 
-            return query; 
+            return query;
+        }
+
+        protected T GetOne(Func<T, bool> where)
+        {
+            var session = DatabaseProvider.Store.OpenSession();
+
+            var getOneEntity = session.Query<T>().Where(where).FirstOrDefault();
+            if (getOneEntity == null) throw new EntityNotFoundException("Entity not found");
+
+            return getOneEntity;
         }
     }
 }
