@@ -6,7 +6,7 @@ namespace Pets.Api.Database.Repository
     {
         public async Task AddDogs(Dog dog)
         {
-            await Add(dog);
+            await AddOrUpdate(dog);
         }
 
         public async Task DeleteDogs(string id)

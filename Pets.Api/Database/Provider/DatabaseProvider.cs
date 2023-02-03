@@ -1,5 +1,4 @@
-﻿using Pets.Api.Database.DatabaseSettings;
-using Raven.Client.Documents;
+﻿using Raven.Client.Documents;
 using Raven.Client.Documents.Operations;
 using Raven.Client.Exceptions;
 using Raven.Client.Exceptions.Database;
@@ -10,20 +9,6 @@ namespace Pets.Api.Database.Provider
 {
     public class DatabaseProvider : IDatabaseProvider
     {
-        public static IDocumentStore Store => CreateStore();
-
-        private static IDocumentStore CreateStore()
-        {
-            var store = new DocumentStore()
-            {
-                Urls = new[] { RavenDbSettings.RavenUrl },
-
-                Database = RavenDbSettings.DatabaseName,
-            }.Initialize();
-
-            return store;
-        }
-
         public void EnsureDatabaseExists(IDocumentStore store, string? database = null, bool createDatabaseIfNotExists = true)
         {
             database ??= store.Database;
@@ -53,7 +38,7 @@ namespace Pets.Api.Database.Provider
 
         public void CreateDatabase()
         {
-            EnsureDatabaseExists(CreateStore());
+            EnsureDatabaseExists(DocumentStoreHolder.Store);
         }
     }
 }

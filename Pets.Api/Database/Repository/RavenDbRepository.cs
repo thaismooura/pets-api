@@ -5,9 +5,9 @@ namespace Pets.Api.Database.Repository
 {
     public class RavenDbRepository<T>
     {
-        protected async Task Add(T entity)
+        protected async Task AddOrUpdate(T entity)
         {
-            var session = DatabaseProvider.Store.OpenAsyncSession();
+            var session = DocumentStoreHolder.Store.OpenAsyncSession();
 
             await session.StoreAsync(entity);
 
@@ -16,7 +16,7 @@ namespace Pets.Api.Database.Repository
 
         protected async Task Delete(string id)
         {
-            var session = DatabaseProvider.Store.OpenAsyncSession();
+            var session = DocumentStoreHolder.Store.OpenAsyncSession();
 
             session.Delete(id);
 
@@ -25,7 +25,7 @@ namespace Pets.Api.Database.Repository
 
         protected IEnumerable<T> Get(Func<T, bool> where)
         {
-            var session = DatabaseProvider.Store.OpenSession();
+            var session = DocumentStoreHolder.Store.OpenSession();
 
             var query = session.Query<T>().Where(where);
 
@@ -34,7 +34,7 @@ namespace Pets.Api.Database.Repository
 
         protected T GetOne(Func<T, bool> where)
         {
-            var session = DatabaseProvider.Store.OpenSession();
+            var session = DocumentStoreHolder.Store.OpenSession();
 
             var getOneEntity = session.Query<T>().Where(where).FirstOrDefault();
             if (getOneEntity == null) throw new EntityNotFoundException("Entity not found");

@@ -15,8 +15,8 @@ namespace Pets.Api.Controllers
             _dogsRepository = dogsRepository;
         }
 
-        [HttpPost("add-dogs")]
-        public async Task<IActionResult> AddDogs(Dog dog)
+        [HttpPost("add-or-update-dogs")]
+        public async Task<IActionResult> AddOrUpdateDogs(Dog dog)
         {
             await _dogsRepository.AddDogs(dog);
 
